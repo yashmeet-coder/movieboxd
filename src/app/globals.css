@@ -18,12 +18,13 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
+    background-color: #14181C;
 }
 
 @layer utilities {
@@ -31,3 +32,47 @@ body {
     text-wrap: balance;
   }
 }
+
+@font-face {
+  font-family: 'Graphik';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/Graphik-Semibold-Web.woff2') format('woff2');
+}
+
+@font-face{
+  font-family: "Tiempos";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/test-tiempos-headline-bold.woff2') format('woff2');
+}
+
+@font-face{
+  font-family: "Graphik-light";
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/GraphikLight.otf') format('opentype');
+}
+
+@font-face{
+  font-family: "Graphik-regular";
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/GraphikRegular.otf') format('opentype');
+}
+
+/* .spinner {
+  width: 3px;
+  height: 3px;
+  border-radius: 3px;
+  box-shadow: 9px 0px 0 0 rgba(71,75,255,0.2), 9.7px 7.1px 0 0 rgba(71,75,255,0.4), 3.7199999999999998px 11.4px 0 0 rgba(71,75,255,0.6), -3.7199999999999998px 11.4px 0 0 rgba(71,75,255,0.8), -9.7px 7.1px 0 0 #474bff;
+  animation: spinner-b87k6z 1s infinite linear;
+}
+@keyframes spinner-b87k6z {
+  to {
+     transform: rotate(360deg);
+  }
+} */
+

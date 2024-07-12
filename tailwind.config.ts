@@ -13,8 +13,16 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        Graphik: ['Graphik', 'sans-serif'],
+        Tiempos: ['Tiempos', 'serif'],
+        GraphikLight: ['Graphik-light', 'sans-serif'],
+        GraphikRegular: ['Graphik-regular', 'sans-serif'],
+      }
     },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
 };
 export default config;
