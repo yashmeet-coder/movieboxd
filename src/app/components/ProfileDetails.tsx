@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { getMovies } from "../supabase/helpers";
+import LikedMovies from "./LikedMovies";
 // import { getWatchedMovies } from "../supabase/helpers";
 
 const ProfileDetails = ({ userProfile }: { userProfile: any }) => {
@@ -9,9 +10,7 @@ const ProfileDetails = ({ userProfile }: { userProfile: any }) => {
 
   useEffect(() => {
     async function getLikedMovies() {
-      const { liked_movies, watched_movies } = await getMovies(
-        userProfile?.user?.id
-      );
+      const { liked_movies, watched_movies } = await getMovies();
       // const watched = await getWatchedMovies(userProfile?.user?.id)
       setWatchedMovies(watched_movies);
       setLikedMovies(liked_movies);
@@ -42,7 +41,7 @@ const ProfileDetails = ({ userProfile }: { userProfile: any }) => {
         </div>
       </div>
       <div className="liked_movies">  
-        <h3>Liked Movies</h3>
+        {likedMovies && <LikedMovies likedMovies={likedMovies} />}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { log } from 'console'
+import { redirect } from 'next/navigation'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function updateSession(request: NextRequest) {
@@ -38,7 +39,7 @@ export async function updateSession(request: NextRequest) {
   if (!user) {
     // no user, potentially respond by redirecting the user to the login page
     console.log('no user found');
-    
+    redirect("/")
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're

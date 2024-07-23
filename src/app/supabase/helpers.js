@@ -71,7 +71,7 @@ export const getUserData = async () => {
   return user
 }
 
-export const likeMovie = async (movieId,user_id) => {
+export const likeMovie = async (movieId,poster_path,user_id) => {
   const supabase = createClient();
   // const { data, error1 } = await supabase.auth.getSession()
   // console.log("like", data?.session?.user?.id, movieId)
@@ -79,7 +79,7 @@ export const likeMovie = async (movieId,user_id) => {
   const { data: data1, error } = await supabase
     .from('likedMovies')
     .insert(
-      { user_id: user_id, movie_id: movieId }).select('*')
+      { user_id: user_id, movie_id: movieId, poster_path: poster_path }).select('*')
     console.log("data",data1,error);
     if(error){
       throw error
@@ -91,34 +91,40 @@ export const likeMovie = async (movieId,user_id) => {
   }
 }
 
-export const addToWatchlist = async (movieId) => {
+export const addToWatchlist = async (movieId,poster_path) => {
+  const supabase = createClient();
   const { data, error1 } = await supabase.auth.getSession()
   // console.log("like",data?.session?.user?.id,movieId)
+  try{
   const { data: data1, error } = await supabase
     .from('watchlist')
     .insert(
-      { user_id: data?.session?.user?.id, movie_id: movieId }).select('*')
-  if (error === null) {
-    toast.success("Movie added to watchlist")
+      { user_id: data?.session?.user?.id, movie_id: movieId,poster_path:poster_path }).select('*')
+  if(error){
+    throw error;
   }
-  else {
-    toast.error("Movie already added")
-  }
+    }
+    catch(error){
+      return {error:error.message}
+    }
 }
 
-export const setWatched = async (movieId) => {
+export const setWatched = async (movieId,poster_path) => {
+  const supabase = createClient();
   const { data, error1 } = await supabase.auth.getSession()
   // console.log("like",data?.session?.user?.id,movieId)
+  try{
   const { data: data1, error } = await supabase
     .from('watched_movies')
     .insert(
-      { user_id: data?.session?.user?.id, movie_id: movieId }).select('*')
-  if (error === null) {
-    toast.success("Movie added to watched list")
-  }
-  else {
-    toast.error("Movie already added")
-  }
+      { user_id: data?.session?.user?.id, movie_id: movieId,poster_path:poster_path }).select('*')
+      if(error){
+        throw error;
+      }
+    }catch(error){
+      return {error:error.message}
+    
+    }
 }
 
 // export const getWatchedMovies = async ({ user_id }) => {
@@ -136,11 +142,13 @@ export const getMovieStats = async(user_id)=>{
 
 }
 
-export const getMovies = async(user_id)=>{
-  const supabase = createBrowClient();
-  const {data:liked_movies,error} = await supabase.from('likedMovies').select('*').eq('user_id',user_id)
-  const {data:watched_movies,error1} = await supabase.from('watchedMovies').select('*').eq('user_id',user_id)
+export const getMovies = async()=>{
+  const supabase = createClient();
+  const {data,error} = await supabase.auth.getSession();
+  const {data:liked_movies,error2} = await supabase.from('likedMovies').select('*').eq('user_id',data?.session?.user?.id)
+  const {data:watched_movies,error1} = await supabase.from('watchedMovies').select('*').eq('user_id',data?.session?.user?.id)
+  const {data:watchlist,error3} = await supabase.from('watchlist').select('*').eq('user_id',data?.session?.user?.id)
   // console.log(liked_number);
-  return {liked_movies,watched_movies}
+  return {liked_movies,watched_movies,watchlist}
 }
 

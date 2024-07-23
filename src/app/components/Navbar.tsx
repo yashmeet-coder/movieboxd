@@ -11,11 +11,14 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 // import { createClient } from "../supabase/client";
 import SignIn from "./SignIn";
+import SearchBar from "./SearchBar";
+import { FaSearch } from "react-icons/fa";
 
 const Navbar: React.FunctionComponent = () => {
   // const supabase = createClient();
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const [show, setShow] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
   const [profile, setProfile] = useState<any>({});
   const [showSignIn, setShowSignIn] = useState(false);
@@ -63,8 +66,10 @@ const Navbar: React.FunctionComponent = () => {
             }}
           />
           <CiUser onClick={() => setShowSignIn(true)} />
+          <FaSearch onClick={()=>{setShowSearch(!showSearch)}}/>
         </div>
       </div>
+            {showSearch && <SearchBar />}
       <div className="flex items-center md:pt-4 relative m-auto">
         <Link href="/">
           <section className="md:flex invisible md:visible">
@@ -72,9 +77,9 @@ const Navbar: React.FunctionComponent = () => {
             <Image src={letterboxd_logo} alt="Letterboxd Logo" width={240} />
           </section>
         </Link>
-        <div className={`${showSignIn ? "" : ""} `}>
+        <div className={`${showSignIn ? "" : "flex items-center"} `}>
         
-          <ul className="max-sm:hidden md:flex gap-4 ml-16 cursor-pointer">
+          <ul className="max-sm:hidden md:flex gap-4 ml-16 cursor-pointer items-center">
             {!profile?.session && (
               <div className="flex gap-4">
                 <li
@@ -107,7 +112,7 @@ const Navbar: React.FunctionComponent = () => {
                     <li className="font-GraphikRegular text-[12px] pl-[15px] pr-[56px] pt-[6px] hover:bg-[#88a] pb-[6px] leading-4 text-black tracking-wide">
                       Home
                     </li>
-                    <Link href="/gddhdhddhhu">
+                    <Link href={`/${profile?.session?.user?.user_metadata?.username}`}>
                       <li className="font-GraphikRegular text-[12px] pl-[15px] pr-[71px] pt-[6px] text-black hover:bg-[#88a] pb-[6px] leading-4 tracking-wide">
                         Profile
                       </li>
@@ -142,6 +147,10 @@ const Navbar: React.FunctionComponent = () => {
             <li className="font-Graphik text-[13px] py-4 uppercase tracking-widest">
               Members
             </li>
+            {/* <li className="font-Graphik text-[13px] py-4 uppercase tracking-widest">
+              <SearchBar />
+              </li> */}
+              <SearchBar />
           </ul>
           {isMobile && (
             <div

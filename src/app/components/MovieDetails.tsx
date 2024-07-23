@@ -87,7 +87,7 @@ const MovieDetails = ({
       toast.error('Please sign in to like a movie')
       return;
     }
-    const res = await likeMovie(movie.id,isSignedIn?.session?.user?.id)
+    const res = await likeMovie(movie.id,movie?.poster_path,isSignedIn?.session?.user?.id)
     const data = await res;
     console.log(data);
     
@@ -107,7 +107,14 @@ const MovieDetails = ({
       toast.error('Please sign in to watchlist a movie')
       return;
     }
-    await addToWatchlist(movie.id)
+    const res = await addToWatchlist(movie.id,movie.poster_path)
+    const data = await res;
+    if(data?.error){
+      if(data.error.includes('duplicate key value violates unique constraint')){
+      toast.error("Movie already added to watchlist")
+      return;
+    }}
+    toast.success('Added to watchlist')
   }
 
   const handleaddToWatched = async()=>{
@@ -118,7 +125,14 @@ const MovieDetails = ({
       toast.error('Please sign in to watchlist a movie')
       return;
     }
-    await setWatched(movie.id)
+    const res = await setWatched(movie.id,movie.poster_path)
+    const data = await res;
+    if(data?.error){
+      if(data.error.includes('duplicate key value violates unique constraint')){
+      toast.error("Movie already added to watched")
+      return;
+    }}
+    toast.success('Added to watched')
   }
 
 
