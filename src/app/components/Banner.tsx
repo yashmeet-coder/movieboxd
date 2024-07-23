@@ -47,7 +47,7 @@ const Banner = ({imageUrl,title}:{imageUrl:string,title:string}) => {
           className="bg-[#00ac1c] px-4 py-2 mt-8 rounded-md font-Graphik"
           onClick={() => setIsSignUpVisible(true)}
         >
-          Get started - It's free!
+          Get started - It&apos;s free!
         </button>
       </div>
 
