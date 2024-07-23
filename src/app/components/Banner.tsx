@@ -37,11 +37,11 @@ const Banner = ({imageUrl,title}:{imageUrl:string,title:string}) => {
       </div>
       <div className="text-center">
         <h1 className="font-Tiempos text-[20px] md:text-[36px] text-center mt-[-2rem] md:mt-[-4rem]">
-          Track films you’ve watched.
+          Track films you&apos;ve watched.
           <br />
           Save those you want to see.
           <br />
-          Tell your friends what’s good.{" "}
+          Tell your friends what&apos;s good.
         </h1>
         <button
           className="bg-[#00ac1c] px-4 py-2 mt-8 rounded-md font-Graphik"
@@ -55,7 +55,7 @@ const Banner = ({imageUrl,title}:{imageUrl:string,title:string}) => {
       </div>
     }
     {isSignedIn && <div className="mb-[6rem] w-screen text-center">
-      <h1 className="text-[26px] font-GraphikLight text-[#AABBCC]">Welcome back, <span className="text-white underline">{profile?.session?.user?.user_metadata?.username}</span>. Here's what we have been watching</h1>
+      <h1 className="text-[26px] font-GraphikLight text-[#AABBCC]">Welcome back, <span className="text-white underline">{profile?.session?.user?.user_metadata?.username}</span>. Here&apos;s what we have been watching</h1>
       </div>}
     </div>
 
